@@ -1,7 +1,9 @@
-package com.application.backend.Service;
+package com.application.backend.service;
 
-import com.application.backend.Entity.User;
-import com.application.backend.Repository.UserRepository;
+import com.application.backend.entity.User;
+import com.application.backend.dto.LoginRequest;
+import com.application.backend.dto.RegisterRequest;
+import com.application.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,31 +14,31 @@ public class AuthService {
     private UserRepository userRepository;
 
     // Register user
-    public User register(String username, String email, String password){
-        if(userRepository.existsByEmail(email)){
-            throw new RuntimeException("Email already exists");
-        }
-        if(userRepository.existsByUsername(username)){
-            throw new RuntimeException("Username already exists");
+    public String register(User user) {
+
+        User existingUser = userRepository.findByEmail(user.getEmail());
+
+        if (existingUser != null) {
+            return "Email already exists!";
         }
 
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(password); // store as plain text for now
-
-        return userRepository.save(user);
+        userRepository.save(user);
+        return "User registered successfully!";
     }
 
     // Login user
-    public User login(String email, String password){
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+    public String login(String email, String password) {
 
-        if(!user.getPassword().equals(password)){
-            throw new RuntimeException("Invalid email or password");
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            return "User not found!";
         }
 
-        return user;
+        if (!user.getPassword().equals(password)) {
+            return "Incorrect password!";
+        }
+
+        return "Login successful!";
     }
 }

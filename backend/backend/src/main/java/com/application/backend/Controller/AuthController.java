@@ -1,12 +1,11 @@
-package com.application.backend.Controller;
+package com.application.backend.controller;
 
-import com.application.backend.Entity.User;
-import com.application.backend.Service.AuthService;
+import com.application.backend.dto.LoginRequest;
+import com.application.backend.dto.RegisterRequest;
+import com.application.backend.entity.User;
+import com.application.backend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -15,32 +14,16 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    // Register
     @PostMapping("/register")
-    public Map<String, String> register(@RequestBody Map<String, String> request){
-        User user = authService.register(
-                request.get("username"),
-                request.get("email"),
-                request.get("password")
-        );
-
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User registered successfully");
-        response.put("username", user.getUsername());
-        response.put("email", user.getEmail());
-        return response;
+    public String register(@RequestBody RegisterRequest request) {
+        User user = new User(request.getUsername(), request.getEmail(), request.getPassword());
+        return authService.register(user);
     }
 
+    // Login
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> request){
-        User user = authService.login(
-                request.get("email"),
-                request.get("password")
-        );
-
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Login successful");
-        response.put("username", user.getUsername());
-        response.put("email", user.getEmail());
-        return response;
+    public String login(@RequestBody LoginRequest request) {
+        return authService.login(request.getEmail(), request.getPassword());
     }
 }
