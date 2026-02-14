@@ -1,33 +1,41 @@
 # TASK CHECKLIST
 
 ## DONE
-- [ ] Initialize Spring Boot project
-- [ ] Create project folder structure
-- [ ] Setup README.md and TASK_CHECKLIST.md
+- [x] Initialize Spring Boot project
+- [x] Create project folder structure
+- [x] Setup README.md and TASK_CHECKLIST.md
+- [x] Install React dependencies (react, react-router-dom)
+- [x] Run Spring Boot application (Tomcat started)
+- [x] Create GitHub repository
+- [x] Initial commit
+- [x] MySQL integration (XAMPP / MariaDB)
+- [x] User Entity
+- [x] UserRepository
+- [x] AuthService (with DTO)
+- [x] AuthController
+- [x] Register API (tested)
+- [x] Login API (tested)
+- [x] Frontend connected to backend (fetch working)
+- [x] Register page UI
+- [x] Login page UI
+
 
 ## IN-PROGRESS
-- [ ] User Entity
-- [ ] UserRepository
-- [ ] AuthService
-- [ ] AuthController
+- [ ] JWT Token implementation
 
 ## TODO
 ### Backend
-- [ ] Register API
-- [ ] Login API
-- [ ] JWT Token implementation
+- [ ] Generate JWT on login
+- [ ] Validate JWT filter
 - [ ] Protected endpoint (/api/user/me)
-- [ ] MySQL integration
 
 ### Web
-- [ ] React setups
-- [ ] Register page
-- [ ] Login page
-- [ ] Dashboard page
-- [ ] Logout
+- [ ] Store JWT in frontend
+- [ ] Send JWT in headers
+- [ ] Dashboard page (real data)
+- [ ] Logout (clear token)
 
 ### Docs
-- [ ] Update FRS PDF
-- [ ] Add UML diagrams
+- [ ] Update FRS PDF (final)
+- [ ] Add UML diagrams (final) 
 - [ ] Add UI screenshots
- 
